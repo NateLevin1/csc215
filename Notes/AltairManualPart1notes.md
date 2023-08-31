@@ -88,4 +88,38 @@ NOT:
 
 ## C. NUMBER SYSTEMS
 
+-   Decimal system is base 10
+-   Number systems can be any number of digits
+-   Dual state circuits are base 2, with each digit called a "bit"
+-   Base 8 and base 16 are also used
+
 ## D. THE BINARY SYSTEM
+
+-   Binary system = base 2, used by all computers
+-   Counting in binary:
+
+| Decimal | Binary |
+| ------- | ------ |
+| 0       | 0      |
+| 1       | 1      |
+| 2       | 10     |
+| 3       | 11     |
+| 4       | 100    |
+| 5       | 101    |
+| 6       | 110    |
+| 7       | 111    |
+| 8       | 1000   |
+| 9       | 1001   |
+| 10      | 1010   |
+| 11      | 1011   |
+| 12      | 1100   |
+| 13      | 1101   |
+| 14      | 1110   |
+| 15      | 1111   |
+| 16      | 10000  |
+| 17      | 10001  |
+| 18      | 10010  |
+| 19      | 10011  |
+| 20      | 10100  |
+
+-   Algorithm to convert binary to decimal is to multiply each digit by 2 to the power of its position, then add them all together
