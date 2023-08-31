@@ -1,4 +1,4 @@
-# Altair Manual Part 1
+# [Altair Manual Part 1](https://ubuntourist.codeberg.page/Altair-8800/part-1.html)
 
 ## INTRODUCTION
 
@@ -53,6 +53,38 @@ NOT:
 | 1   | 0   |
 
 ## B. ELECTRONIC LOGIC
+
+-   The basic AND, OR, and NOT gates are created with circuits using transistors
+-   They can be combined with each other to form more complex circuits
+-   NAND = NOT AND
+
+| A   | B   | Out |
+| --- | --- | --- |
+| 0   | 0   | 1   |
+| 0   | 1   | 1   |
+| 1   | 0   | 1   |
+| 1   | 1   | 0   |
+
+-   NOR = NOT OR
+
+| A   | B   | Out |
+| --- | --- | --- |
+| 0   | 0   | 1   |
+| 0   | 1   | 0   |
+| 1   | 0   | 0   |
+| 1   | 1   | 0   |
+
+-   XOR = Exclusive OR (only one or the other, not both)
+-   Also called a binary adder
+
+| A   | B   | Out |
+| --- | --- | --- |
+| 0   | 0   | 0   |
+| 0   | 1   | 1   |
+| 1   | 0   | 1   |
+| 1   | 1   | 0   |
+
+-   Two NANDs can be combined to form a flip-flop, acing as memory
 
 ## C. NUMBER SYSTEMS
 
