@@ -1,5 +1,26 @@
 #!/usr/bin/env python3
 import sys
+import re
+
+
+def remove_comments_split_lines(s):
+    """
+      >>> source = '1B # Comment here\\n'
+      >>> source += "# Whole line comment\\n"
+      >>> source += "C0 # Another end-line comment\\n"
+      >>> remove_comments_split_lines(source)
+      ['1B', 'C0']
+      >>> src2 = '      #       Comment with tab before and after       \\n'
+      >>> src2 += 'F3\\n3B\\nC4\\n'
+      >>> src2 += '===          #          \\n' 
+      >>> src2 += '1B:53          #               Tabs before comment here\\n'
+      >>> src2 += '1C:8F\\n1D:00\\n1E:02   #    Comment at the end...\\n'
+      >>> remove_comments_split_lines(src2)
+      ['F3', '3B', 'C4', '===', '1B:53', '1C:8F', '1D:00', '1E:02']
+    """
+    no_comments = re.sub("[\t\ ]*#.*", '', s)
+    return [line for line in no_comments.splitlines() if line]
+
 
 def is_hex_byte_str(s):
     """
@@ -13,8 +34,16 @@ def is_hex_byte_str(s):
       True
       >>> is_hex_byte_str('P9')
       False
+      >>> is_hex_byte_str('3a')
+      True
+      >>> is_hex_byte_str('fa')
+      True
+      >>> is_hex_byte_str('3')
+      False
+      >>> is_hex_byte_str('F')
+      False
     """
-    digits = '0123456789ABCDEF'
+    digits = '0123456789ABCDEFabcdef'
     return len(s) == 2 and s[0] in digits and s[1] in digits
 
 
@@ -31,6 +60,10 @@ def hex_byte2int(hbyte):
       Traceback (most recent call last):
           ...
       TypeError: Parameter must be a string
+      >>> hex_byte2int('4')
+      Traceback (most recent call last):
+          ...
+      ValueError: Parameter must be string containing 2 hex digits
     """
     digits = '0123456789ABCDEF'
     if type(hbyte) is not str:
@@ -47,10 +80,16 @@ def split_and_validate_source(prog_src):
       (['A0', '4B', '00'], [])
       >>> split_and_validate_source(['A0', '4B', '===', '80:F7'])
       (['A0', '4B'], ['80:F7'])
+      >>> split_and_validate_source(['a0', '4b', '===', '80:f7'])
+      (['a0', '4b'], ['80:f7'])
       >>> split_and_validate_source(['Whatever'])
-      Invalid program source
+      Traceback (most recent call last):
+          ...
+      ValueError: Invalid program source on line 1
       >>> split_and_validate_source(['A0', '4B', '===', '8X:F7'])
-      Invalid program source
+      Traceback (most recent call last):
+          ...
+      ValueError: Invalid program source on line 4
     """
     if '===' not in prog_src:
         split = prog_src, []
@@ -58,14 +97,18 @@ def split_and_validate_source(prog_src):
         loc = prog_src.index('===')
         split = prog_src[:loc], prog_src[loc+1:] 
 
-    for i, line in enumerate(split[0]):
+    for num, line in enumerate(split[0]):
         if not(is_hex_byte_str(line)):
-            raise ValueError('Invalid program source at line '+str(i+1)+": "+line)
+            raise ValueError(
+                f'Invalid program source on line {num + 1}'
+            )
 
-    for i, line in enumerate(split[1]):
+    for num, line in enumerate(split[1]):
         parts = line.split(':')
         if not(is_hex_byte_str(parts[0])) or not(is_hex_byte_str(parts[1])):
-            raise ValueError('Invalid program source at line '+str(i+1)+": "+line)
+            raise ValueError(
+                f'Invalid program source on line {len(split[0]) + num + 2}'
+            ) 
 
     return split
 
@@ -113,21 +156,25 @@ if __name__ == "__main__":
             verbose = None if sourcefile == '--test' else True
             doctest.testmod(verbose=verbose)
             sys.exit()
+        if '.' not in sourcefile:
+            raise ValueError(
+                "Usage error: Source file must have .spc extension"
+            )
         name, extension = tuple(sourcefile.split('.'))
         if extension != 'spc':
             raise ValueError(
                 "Usage error: Source file must have .spc extension"
             )
         infile = open(sourcefile, 'r')
-        lines = [line.strip() for line in infile.readlines()]
+        lines = remove_comments_split_lines(infile.read())
         infile.close()
         source_to_binary(lines, name)
     except IndexError:
         print('Usage error: Include source file')
-        sys.exit(1)
+        sys.exit()
     except FileNotFoundError:
         print('Usage error: Source file not found')
-        sys.exit(1)
+        sys.exit()
     except ValueError as e:
         print(e)
-        sys.exit(1)
+        sys.exit()
