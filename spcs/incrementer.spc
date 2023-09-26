@@ -1,30 +1,32 @@
-# acc = load(50)
+# c is the index in memory that the accumulator is stored at
+# it is incremented each loop
+# load initial accumulator from memory address 50
 3A
 50
 00
-# c = 50
+# set register c = 50
 0E
 50
-# store(b&c, sum)
+# loop_start: store the accumulator at the location specified by register c
 02
 # sum++
 3C
 # c++
 0C
-# store acc at 40
+# temporarily store accumulator at 40 so we can use accumulator for comparison
 32
 40
 00
-# acc = 5A
+# set acc to 5A (the stopping point)
 3E
 5A
-# check c = acc
+# check if c = acc (check if we've reached the stopping point; sets zero bit)
 B9
-# load acc from 40
+# load acc from 40 (because we had to change it to 5A for the comparison)
 3A
 40
 00
-# jump to store if not zero
+# jump to loop_start if not zero (if we haven't reached the stopping point)
 C2
 05
 00
