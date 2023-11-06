@@ -5,8 +5,10 @@
 #define FPTMAX 100
 #define MAXNUMLEN 8
 
-// max integer value = 511
-// max decimal value = 99
+/*
+    max integer value = 511
+    max decimal value = 99
+*/
 
 FixedPoint(integer, decimal)
 int integer;
