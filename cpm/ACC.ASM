@@ -8,7 +8,7 @@ ORG 100H
 ; Call BDOS to print A
 ; Arg 1: PRINT
 MVI C,PRINT
-; Arg 2: '$'
+; Arg 2: 'A'
 MVI E,'A'
 CALL BDOS
 
