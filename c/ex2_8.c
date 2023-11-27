@@ -12,7 +12,7 @@ unsigned char rightrot(unsigned char x, unsigned char n)
 {
     while (n > 0) {
         if(x & 1)   /* rightmost bit of x is 1 */
-            x = (x >> 1) | ~(~0U >> 1);
+            x = (x >> 1) | 128;
         else        /* rightmost bit of x is 0 */
             x = x >> 1;
         --n;
@@ -22,6 +22,6 @@ unsigned char rightrot(unsigned char x, unsigned char n)
 
 int main()
 {
-    printf("%u\n", rightrot(12, 2));
+    printf("%u\n", rightrot(1, 1));
     return 0;
 }

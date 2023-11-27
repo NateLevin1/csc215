@@ -40,16 +40,9 @@ void break_it_down(unsigned char x, char p, char n) {
 }
 
 int main() {
-    unsigned char before = 169;
+    unsigned char before = 42;
     unsigned char after = invert(before, 5, 3);
-    printf(
-        "Flipping %u bits staring at position %u turns % u into %u.\n",
-        3,
-        5,
-        169,
-        invert(169, 5, 3)
-    );
-    break_it_down(169, 5, 3);
-
+    break_it_down(before, 5, 3);
+    printf("%d\n", after);
     return 0;
 }
