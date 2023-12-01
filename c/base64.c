@@ -1,5 +1,6 @@
 /*
     Description: Convert the text in the file passed as input to base64.
+    Author: Nate Levin (12/1/23)
 */
 #include <stdio.h>
 #include <stdlib.h>
