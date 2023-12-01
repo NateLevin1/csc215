@@ -70,11 +70,13 @@ int main(int argc, char *argv[]) {
         bool isLast = i == iters - 1;
         
         int bufIndex = i * 3;
-        char currentChar = (char)buffer[bufIndex];
-        char first = getbits(buffer[bufIndex], 8, 6);
-        char second = (getbits(buffer[bufIndex], 2, 2) << 4) | getbits(buffer[bufIndex + 1], 8, 4);
-        char third = (getbits(buffer[bufIndex + 1], 4, 4) << 2) | getbits(buffer[bufIndex + 2], 8, 2);
-        char fourth = getbits(buffer[bufIndex + 2], 6, 6);
+        char firstChar = (char)buffer[bufIndex];
+        char secondChar = (char)buffer[bufIndex + 1];
+        char thirdChar = (char)buffer[bufIndex + 2];
+        char first = getbits(firstChar, 8, 6);
+        char second = (getbits(firstChar, 2, 2) << 4) | getbits(secondChar, 8, 4);
+        char third = (getbits(secondChar, 4, 4) << 2) | getbits(thirdChar, 8, 2);
+        char fourth = getbits(thirdChar, 6, 6);
 
         printf("%c", base64Alphabet[first]);
         printf("%c", base64Alphabet[second]);
