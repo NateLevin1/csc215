@@ -1,3 +1,4 @@
+// compile with g++ test_homework1.c homework1.c -std=c++11
 #include <stdio.h>
 #include "homework1.h"
 #include <stdbool.h>
