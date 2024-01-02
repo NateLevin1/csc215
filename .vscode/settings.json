@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "console_utils.h": "c",
+        "sstream": "c"
+    }
+}
