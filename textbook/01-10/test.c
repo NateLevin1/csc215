@@ -1,6 +1,6 @@
 #include "stdio.h"
 #include "acc_string.h"
-#include "../testmacros.h"
+#include "../ctest.h"
 
 int main() {
     BEGIN_TESTING("acc_string.h");

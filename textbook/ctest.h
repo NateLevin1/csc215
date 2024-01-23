@@ -1,4 +1,43 @@
-#include "string.h"
+/**
+ *     .oooooo.       ooooooooooooo                        .
+ *    d8P'  `Y8b      8'   888   `8                      .o8
+ *   888                   888      .ooooo.    .oooo.o .o888oo
+ *   888                   888     d88' `88b  d88(  "8   888
+ *   888                   888     888ooo888  `"Y88b.    888
+ *   `88b    ooo           888     888    .o  o.  )88b   888 .
+ *    `Y8bood8P'          o888o    `Y8bod8P'  8""888P'   "888"
+ *
+ *
+ *     C Test: A simple, macro-based testing framework for C
+ *
+ * Created by Nate Levin (@NateLevin1 on GitHub)
+ * Last Updated: 2023-01-23
+ *
+ * Example Usage:
+ * int main() {
+ *     BEGIN_TESTING("filename.h");
+ *
+ *     TEST("describe what the test is testing") {
+ *         TEST_INT(func, expected_return_int, (...arguments));
+ *         TEST_STR(func, expected_return_str, (...arguments));
+ *         TEST_BOOL(boolean_expression);
+ *         TEST_STR_ARR(func, expected_str_arr, modified_str_arr, (...arguments));
+ *     }
+ * }
+ *
+ * NOTE: If your function modifies a string instead of returning a char*,
+ *       use TEST_STR_MOD instead of TEST_STR. For example:
+ *       TEST_STR_MOD(func, expected_str, modified_str, (...arguments)); // use when func modifies the string, instead of returning char*
+ *
+*/
+
+#include <string.h>
+
+#define BEGIN_TESTING(file) \
+    printf("\n \033[36m---\033[0m %s \033[36m---\033[0m\n", file);
+
+#define TEST(description) \
+    printf("\n\033[34m-\033[0m %s\n", description);
 
 #define TEST_INT(func, expected, arguments) \
     { \
@@ -46,9 +85,3 @@
     else \
         printf("\033[31m✗ Failed: %s%s should be \"%s\", but got \"%s\"\033[0m\n", #func, #arguments, expected, modified); \
     };
-
-#define BEGIN_TESTING(file) \
-    printf("\n \033[36m---\033[0m %s \033[36m---\033[0m\n", file);
-
-#define TEST(description) \
-    printf("\n\033[34m-\033[0m %s\n", description);

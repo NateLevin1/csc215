@@ -3,6 +3,15 @@
         "console_utils.h": "c",
         "sstream": "c",
         "stdio.h": "c",
-        "stdbool.h": "c"
+        "stdbool.h": "c",
+        "__locale": "c",
+        "acc_string.h": "c",
+        "ctest.h": "c",
+        "string": "c",
+        "iosfwd": "c",
+        "filesystem": "c",
+        "string.h": "c",
+        "istream": "c",
+        "complex": "c"
     }
 }
